@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A letter for Adeeba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=IM+Fell+English:ital@1&display=swap" rel="stylesheet">
+<style>
+:root{--desk:#3a2818;--desk2:#5a4230;--ivory:#efe0bb;--ink:#4a2a14;--hint:#e2cfa5;
+--W:min(84vw,360px);--H:calc(var(--W)*.5);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--desk:#1f150c;--desk2:#38271a}}
+:root[data-theme="dark"]{--desk:#1f150c;--desk2:#38271a}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{background:radial-gradient(ellipse at 50% 35%,var(--desk2),var(--desk) 78%) fixed;color:var(--ink);font-family:'Caveat','Segoe Script','Bradley Hand',cursive;overflow-x:hidden}
+body.lock{overflow:hidden;height:100%}
+
+/* ---------- paper ---------- */
+.paper{background-color:var(--ivory);
+background-image:radial-gradient(circle at 18% 14%,rgba(160,105,40,.22),transparent 42%),radial-gradient(circle at 86% 82%,rgba(120,70,20,.28),transparent 48%),radial-gradient(circle at 72% 30%,rgba(200,150,70,.16),transparent 34%),radial-gradient(circle at 30% 70%,rgba(140,90,30,.12),transparent 30%);
+box-shadow:inset 0 0 38px rgba(115,70,22,.55),inset 0 0 6px rgba(80,45,15,.6)}
+.paper::after{content:"";position:absolute;inset:0;background:var(--wr);background-size:420px;mix-blend-mode:multiply;opacity:.6;pointer-events:none}
+
+/* ---------- opening: folded paper (fast & smooth) ---------- */
+.stage{position:fixed;inset:0;display:grid;place-items:center;cursor:pointer;z-index:5;transition:opacity .9s ease,visibility .9s;-webkit-tap-highlight-color:transparent}
+.stage.done{opacity:0;visibility:hidden;pointer-events:none}
+.scene{position:relative;width:var(--W);height:var(--H);perspective:1300px}
+.shadow{position:absolute;inset:0;background:#000;opacity:.55;filter:blur(18px);transform:translateY(10px) scale(.94);transition:transform 1.4s ease}
+.fold{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(16deg) rotateZ(-2.5deg) scale(.92);transition:transform 1.5s cubic-bezier(.4,0,.2,1)}
+.pn{position:absolute;left:0;width:100%;height:100%;transform-style:preserve-3d;transition:transform .85s cubic-bezier(.5,0,.25,1)}
+.pn.b{top:0}
+.pn.a{top:-100%;transform-origin:50% 100%;transform:translateZ(2px) rotateX(-179deg);transition-delay:.12s}
+.pn.c{top:100%;transform-origin:50% 0;transform:translateZ(-2px) rotateX(-179deg)}
+.open .shadow{transform:translateY(14px) scale(1,3)}
+.open .fold{transform:rotateX(0) rotateZ(0) scale(1)}
+.open .pn.a,.open .pn.c{transform:rotateX(0)}
+.open .pn.c{transition-delay:.48s}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden}
+.face.back{transform:rotateX(180deg)}
+.face::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(70,40,10,.32),transparent 14%,transparent 86%,rgba(70,40,10,.32)),linear-gradient(to right,rgba(70,40,10,.18),transparent 8%,transparent 92%,rgba(70,40,10,.18))}
+.sh{position:absolute;inset:0;z-index:2;background:#2a1606;opacity:.38;transition:opacity .85s ease}
+.pn.a .sh{transition-delay:.12s}.pn.c .sh{transition-delay:.48s}
+.open .sh{opacity:0}
+.ink{position:absolute;inset:18% 12%;background:repeating-linear-gradient(to bottom,rgba(74,42,20,.3) 0 3px,transparent 3px 19px);filter:blur(.6px);-webkit-mask:linear-gradient(to right,#000 85%,transparent)}
+.to{position:absolute;inset:0;display:grid;place-items:center;z-index:1;font-weight:700;font-size:calc(var(--W)*.15);color:var(--ink);transform:rotate(-3deg);text-shadow:0 0 1px rgba(74,42,20,.5)}
+.hint{position:absolute;left:0;right:0;bottom:calc(12vh + env(safe-area-inset-bottom,0px));text-align:center;font:italic 1.1rem 'IM Fell English',Georgia,serif;color:var(--hint);letter-spacing:.04em;animation:breathe 2.8s ease-in-out infinite;transition:opacity .6s}
+.stage.go .hint{opacity:0;animation:none}
+@keyframes breathe{50%{opacity:.35}}
+
+/* ---------- the letter ---------- */
+#letter{padding:14px 12px 48px;opacity:0;visibility:hidden;transition:opacity 1.2s ease}
+#letter.show{opacity:1;visibility:visible}
+.sheet{position:relative;max-width:560px;margin:0 auto;filter:drop-shadow(0 12px 20px rgba(0,0,0,.55));transform:scale(.97);transition:transform 1.4s ease}
+#letter.show .sheet{transform:none}
+.sheet-bg{position:absolute;inset:0;filter:url(#edge);overflow:hidden}
+.crease{position:absolute;left:0;right:0;height:36px;z-index:1;background:linear-gradient(to bottom,transparent,rgba(80,48,18,.2) 46%,rgba(255,248,225,.45) 54%,transparent)}
+.crease.v{left:50%;right:auto;width:30px;top:0;bottom:0;height:auto;margin-left:-15px;opacity:.55;background:linear-gradient(to right,transparent,rgba(80,48,18,.2) 46%,rgba(255,248,225,.45) 54%,transparent)}
+.text{position:relative;z-index:2;padding:3.4rem 1.7rem 3.2rem;font-size:clamp(1.42rem,5.6vw,1.75rem);line-height:1.52;text-shadow:0 0 1px rgba(74,42,20,.5)}
+.text p{margin:0 0 1.15em;opacity:0;transform:translateY(6px);filter:blur(2.5px);transition:opacity 1.2s ease,transform 1.2s ease,filter 1.2s ease}
+.text p.in{opacity:.94;transform:none;filter:none}
+.text .sig{text-align:right;font-weight:700;font-size:2.2em;margin:1.3rem .4rem 0 0;transform:rotate(-3deg);line-height:1}
+.text .sig.in{transform:rotate(-3deg)}
+
+@media (prefers-reduced-motion:reduce){.pn,.fold,.shadow,.sh,.text p,.sheet{transition-duration:.01s!important;transition-delay:0s!important}.hint{animation:none}}
+.turn{display:flex;justify-content:center;margin:28px auto 0;opacity:0;transform:translateY(8px);transition:opacity 1.2s ease,transform 1.2s ease}
+.turn.in{opacity:1;transform:none}
+.turn button{font:700 1.75rem 'Caveat','Segoe Script',cursive;color:var(--ink);background:#e8d6aa;border:1.5px solid rgba(74,42,20,.65);border-radius:999px;padding:.5rem 2rem;min-height:48px;cursor:pointer;box-shadow:0 6px 14px rgba(0,0,0,.45),inset 0 0 10px rgba(115,70,22,.45);-webkit-tap-highlight-color:transparent;transition:transform .2s}
+.turn button:active{transform:translateY(1px) scale(.98)}
+.turn button:focus-visible,.radio:focus-visible{outline:2px solid var(--hint);outline-offset:4px}
+
+/* ---------- page two: photo lights with sideways scrolling ---------- */
+#p2{position:fixed;inset:0;z-index:8;overflow:hidden;padding-top:env(safe-area-inset-top,0px);background:radial-gradient(ellipse at 50% 28%,#715843,#3d2b1c 62%,#22160d);opacity:0;visibility:hidden;transition:opacity 1.2s ease,visibility 1.2s}
+#p2.show{opacity:1;visibility:visible}
+#p2::before{content:"";position:absolute;inset:-20px;pointer-events:none;filter:blur(7px);background:radial-gradient(circle at 12% 62%,rgba(255,196,110,.2) 0 34px,transparent 36px),radial-gradient(circle at 80% 70%,rgba(255,196,110,.16) 0 46px,transparent 48px),radial-gradient(circle at 52% 58%,rgba(255,210,140,.12) 0 28px,transparent 30px),radial-gradient(circle at 90% 48%,rgba(255,196,110,.14) 0 22px,transparent 24px),radial-gradient(circle at 28% 80%,rgba(255,196,110,.12) 0 40px,transparent 42px),radial-gradient(circle at 66% 86%,rgba(255,210,140,.1) 0 30px,transparent 32px)}
+#p2::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,transparent 45%,rgba(10,5,0,.55))}
+
+.swipe-hint{
+  position:absolute;
+  top:calc(12px + env(safe-area-inset-top,0px));
+  left:0;
+  right:0;
+  text-align:center;
+  font:italic 1.05rem 'IM Fell English',Georgia,serif;
+  color:var(--hint);
+  z-index:6;
+  pointer-events:none;
+  letter-spacing:.04em;
+  animation:breathe 2.4s ease-in-out infinite;
+  transition:opacity .6s ease;
+  text-shadow:0 2px 6px rgba(0,0,0,.7);
+}
+.swipe-hint.hide{opacity:0;pointer-events:none}
+
+/* Horizontal scroll container for the hanging lights */
+.scroll-wrap{
+  position:absolute;
+  inset:0;
+  bottom:calc(155px + env(safe-area-inset-bottom,0px));
+  overflow-x:auto;
+  overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  cursor:grab;
+  z-index:2;
+  user-select:none;
+}
+.scroll-wrap::-webkit-scrollbar{display:none}
+.scroll-wrap:active{cursor:grabbing}
+
+.rig{
+  position:relative;
+  height:100%;
+  margin:0;
+  z-index:1;
+  min-width:100%;
+}
+.rig svg{
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  overflow:visible;
+  pointer-events:none;
+}
+.items{position:absolute;inset:0}
+
+/* Glowing LED Clothespins */
+.clip{
+  position:absolute;
+  width:18px;
+  height:46px;
+  margin-left:-9px;
+  z-index:3;
+  transform-origin:50% 0;
+  filter:drop-shadow(0 2px 5px rgba(0,0,0,.5));
+}
+.bulb{
+  position:absolute;
+  left:1px;
+  top:0;
+  width:16px;
+  height:21px;
+  border-radius:5px 5px 8px 8px;
+  background:radial-gradient(circle at 50% 58%,#fffbe8,#ffdc90 55%,#f3b45c);
+  box-shadow:0 0 14px 5px rgba(255,200,110,.85),0 0 38px 16px rgba(255,170,70,.4);
+}
+.prong{
+  position:absolute;
+  top:18px;
+  width:7px;
+  height:28px;
+  border-radius:2px;
+  background:linear-gradient(90deg,rgba(255,255,255,.6),rgba(255,236,190,.22));
+  border:1px solid rgba(255,245,220,.5);
+}
+.prong.l{left:0}.prong.r{right:0}
+
+/* Mini twinkle fairy bulb on wire */
+.wire-fairy{
+  position:absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#fffdf0;
+  box-shadow:0 0 8px 3px rgba(255,210,120,.9),0 0 18px 6px rgba(255,160,50,.5);
+  transform:translate(-50%,-50%);
+  animation:fairyBlink 2.6s infinite ease-in-out alternate;
+}
+@keyframes fairyBlink{0%{opacity:.6;transform:translate(-50%,-50%) scale(.9)}100%{opacity:1;transform:translate(-50%,-50%) scale(1.2)}}
+
+/* Polaroids */
+.pol{
+  position:absolute;
+  z-index:2;
+  transform-origin:50% 0;
+  --r:0deg;
+  transform:rotate(var(--r));
+  cursor:pointer;
+  transition:transform .2s ease;
+}
+.pol:active{transform:rotate(var(--r)) scale(1.04);z-index:10}
+.card{
+  background:linear-gradient(#fbf7ed,#eee3cb);
+  padding:7% 7% 0;
+  box-shadow:0 12px 22px rgba(0,0,0,.6),0 0 18px rgba(255,190,90,.15);
+  border-radius:2px;
+}
+.pic{
+  display:block;
+  position:relative;
+  aspect-ratio:1/1.06;
+  overflow:hidden;
+  background:#26180d;
+}
+.pic::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  box-shadow:inset 0 0 14px rgba(60,30,5,.4);
+  pointer-events:none;
+}
+.pic img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  filter:sepia(.15) contrast(1.05) saturate(1.02);
+}
+.cap{
+  min-height:26px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:4px 2px 8px;
+  font-family:'Caveat',cursive;
+  font-weight:700;
+  font-size:1.15rem;
+  color:#3a2010;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  letter-spacing:.02em;
+}
+
+#p2.show .pol{
+  animation:drop 1.8s cubic-bezier(.2,.8,.3,1) backwards,sway 6.2s ease-in-out infinite 1.8s;
+  animation-delay:calc(var(--d) + .3s),calc(var(--d) + 2.1s);
+}
+#p2.show .bulb{
+  animation:lightOn 1.2s ease backwards,glow 3.2s ease-in-out infinite;
+  animation-delay:var(--d),calc(var(--d) + 1.2s);
+}
+@keyframes sway{0%,100%{transform:rotate(calc(var(--r) - 2.2deg))}50%{transform:rotate(calc(var(--r) + 2.2deg))}}
+@keyframes drop{from{transform:rotate(calc(var(--r) + 24deg));opacity:0}to{transform:rotate(var(--r));opacity:1}}
+@keyframes lightOn{from{opacity:0;filter:brightness(.4)}}
+@keyframes glow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.22)}}
+
+/* ---------- Radio Controls & Final Button ---------- */
+.radio-bar{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:calc(10px + env(safe-area-inset-bottom,0px));
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  z-index:6;
+  pointer-events:none;
+}
+
+.final-btn-wrap{
+  margin-bottom:8px;
+  pointer-events:auto;
+}
+.final-btn{
+  font:700 1.25rem 'Caveat','Segoe Script',cursive;
+  color:#fffaf0;
+  background:linear-gradient(135deg,rgba(165,45,65,.92),rgba(110,25,40,.96));
+  border:1.5px solid rgba(255,210,140,.55);
+  border-radius:999px;
+  padding:.42rem 1.6rem;
+  min-height:42px;
+  cursor:pointer;
+  box-shadow:0 6px 18px rgba(0,0,0,.65),0 0 18px rgba(230,50,80,.4);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  letter-spacing:.02em;
+  transition:transform .2s,box-shadow .2s;
+  -webkit-tap-highlight-color:transparent;
+  animation:finalBtnPulse 2.4s ease-in-out infinite;
+}
+.final-btn:active{transform:scale(.95)}
+@keyframes finalBtnPulse{
+  0%,100%{transform:scale(1);box-shadow:0 6px 18px rgba(0,0,0,.65),0 0 14px rgba(230,50,80,.35)}
+  50%{transform:scale(1.04);box-shadow:0 8px 22px rgba(0,0,0,.75),0 0 24px rgba(255,180,100,.6)}
+}
+
+.rhint{
+  margin-bottom:6px;
+  text-align:center;
+  font:italic 1rem 'IM Fell English',Georgia,serif;
+  color:var(--hint);
+  text-shadow:0 2px 6px rgba(0,0,0,.7);
+  transition:opacity .6s;
+  pointer-events:auto;
+  animation:breathe 2.8s ease-in-out infinite;
+  padding:0 12px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:90vw;
+}
+.rhint.playing{animation:none;color:#ffe299}
+.radio-controls{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  pointer-events:auto;
+}
+.radio{
+  position:relative;
+  width:104px;
+  height:78px;
+  background:none;
+  border:0;
+  padding:0;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .2s;
+}
+.radio svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 8px 12px rgba(0,0,0,.65))}
+.radio .dial{transition:fill .5s,filter .5s}
+.radio.on .dial{fill:#ffe7a0;filter:drop-shadow(0 0 8px rgba(255,190,90,.95))}
+.radio:not(.on){animation:nudge 2.8s ease-in-out infinite}
+@keyframes nudge{50%{transform:scale(1.05)}}
+.radio:active{transform:scale(.96)}
+
+.radio-skip-btn{
+  background:linear-gradient(135deg,rgba(90,55,30,.85),rgba(50,30,15,.95));
+  border:1.5px solid rgba(255,220,160,.4);
+  color:#ffe7a0;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 6px 14px rgba(0,0,0,.5);
+  transition:transform .2s,background .2s;
+  -webkit-tap-highlight-color:transparent;
+}
+.radio-skip-btn:active{transform:scale(.92);background:#7a4420}
+
+.note{
+  position:absolute;
+  left:50%;
+  bottom:calc(88px + env(safe-area-inset-bottom,0px));
+  z-index:7;
+  color:#ffd98a;
+  font-size:1.8rem;
+  text-shadow:0 0 10px rgba(255,190,90,.9);
+  pointer-events:none;
+  animation:rise 3.4s ease-out forwards;
+}
+@keyframes rise{from{opacity:0;transform:translate(var(--x),0)}15%{opacity:.95}to{opacity:0;transform:translate(calc(var(--x)*2),-130px) rotate(14deg)}}
+
+/* ---------- Lightbox Modal ---------- */
+.lightbox{
+  position:fixed;
+  inset:0;
+  z-index:30;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .35s ease,visibility .35s;
+}
+.lightbox.show{opacity:1;visibility:visible}
+.lb-backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(12,8,4,.85);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.lb-card{
+  position:relative;
+  z-index:2;
+  background:linear-gradient(#fbf7ed,#eee3cb);
+  padding:16px 16px 20px;
+  border-radius:4px;
+  box-shadow:0 22px 50px rgba(0,0,0,.8),0 0 30px rgba(255,190,90,.3);
+  max-width:330px;
+  width:100%;
+  transform:scale(.88) translateY(12px);
+  transition:transform .35s cubic-bezier(.175,.885,.32,1.275);
+}
+.lightbox.show .lb-card{transform:scale(1) translateY(0)}
+.lb-close{
+  position:absolute;
+  top:-44px;
+  right:0;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:rgba(255,255,255,.2);
+  border:1px solid rgba(255,255,255,.35);
+  color:#fff;
+  font-size:18px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .2s;
+}
+.lb-close:active{background:rgba(255,255,255,.4)}
+.lb-clip{
+  position:absolute;
+  top:-22px;
+  left:50%;
+  margin-left:-9px;
+  width:18px;
+  height:46px;
+  z-index:3;
+}
+.lb-pic{
+  width:100%;
+  aspect-ratio:1/1.08;
+  overflow:hidden;
+  border-radius:2px;
+  background:#1a1008;
+}
+.lb-pic img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.lb-cap{
+  font:700 1.55rem 'Caveat',cursive;
+  color:var(--ink);
+  text-align:center;
+  margin-top:10px;
+}
+.lb-nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:8px;
+}
+.lb-btn{
+  background:rgba(74,42,20,.15);
+  border:1px solid rgba(74,42,20,.35);
+  color:var(--ink);
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  font-size:22px;
+  line-height:1;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .2s;
+}
+.lb-btn:active{background:rgba(74,42,20,.3)}
+.lb-counter{
+  font:italic .95rem 'IM Fell English',Georgia,serif;
+  color:var(--ink);
+  opacity:.8;
+}
+
+/* ---------- Final Blackout Screen ---------- */
+.blackout-view{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:#000000;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:32px 24px calc(36px + env(safe-area-inset-bottom,0px));
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity 1.4s cubic-bezier(.4,0,.2,1),visibility 1.4s ease;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.blackout-view.active{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+
+.blackout-content{
+  max-width:440px;
+  width:100%;
+  margin:auto;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  transform:translateY(18px);
+  transition:transform 1.4s cubic-bezier(.16,1,.3,1);
+}
+.blackout-view.active .blackout-content{
+  transform:translateY(0);
+}
+
+.blackout-heart{
+  font-size:2.5rem;
+  display:inline-block;
+  margin-bottom:18px;
+  animation:heartPulse 1.8s infinite;
+  cursor:pointer;
+  user-select:none;
+  filter:drop-shadow(0 0 16px rgba(255,80,110,.7));
+}
+
+.blackout-text{
+  font-family:'Caveat','Segoe Script',cursive;
+  font-weight:600;
+  font-size:clamp(1.48rem,5.6vw,1.9rem);
+  line-height:1.68;
+  color:#fff7eb;
+  text-shadow:0 0 16px rgba(255,225,170,.45),0 0 32px rgba(255,160,80,.25);
+  letter-spacing:.02em;
+  margin-bottom:28px;
+  text-align:justify;
+  text-align-last:center;
+}
+
+.blackout-sig{
+  font-family:'Caveat','Segoe Script',cursive;
+  font-weight:700;
+  font-size:2.4rem;
+  color:#ffdc8f;
+  text-shadow:0 0 20px rgba(255, 215, 140, 0.7);
+  margin-bottom:28px;
+}
+
+.blackout-back-btn{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.24);
+  color:rgba(255,240,220,.85);
+  font:italic 1.05rem 'IM Fell English',Georgia,serif;
+  padding:8px 24px;
+  border-radius:999px;
+  cursor:pointer;
+  transition:all .25s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+.blackout-back-btn:active{
+  background:rgba(255,255,255,.18);
+  color:#fff;
+  border-color:rgba(255,255,255,.5);
+  color:#fff;
+  border-color:rgba(255,255,255,.5);
+  transform:scale(.97);
+}
+
+/* Calm & Sad Background Music Button */
+.bgm-btn{
+  position:fixed;
+  top:calc(12px + env(safe-area-inset-top,0px));
+  right:14px;
+  z-index:90;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:rgba(35,20,12,.8);
+  border:1px solid rgba(255,220,160,.4);
+  color:var(--hint);
+  font-size:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,.55);
+  transition:all .3s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+.bgm-btn.playing{
+  color:#ffe7a0;
+  border-color:#ffe7a0;
+  box-shadow:0 0 14px rgba(255,200,100,.55);
+  animation:bgmNotePulse 2.8s infinite alternate;
+}
+@keyframes bgmNotePulse{
+  0%{transform:scale(1)}
+  100%{transform:scale(1.08)}
+}
+
+@media (prefers-reduced-motion:reduce){#p2.show .pol,#p2.show .bulb,.radio:not(.on),.rhint,.wire-fairy,.blackout-heart,.final-btn,.bgm-btn{animation:none!important}}
+</style>
+</head>
+<body class="lock">
+
+<button class="bgm-btn" id="bgm-btn" type="button" title="Background Music" aria-label="Toggle background music">
+  <span class="bgm-icon">♪</span>
+</button>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="edge" x="-2%" y="-1%" width="104%" height="102%"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="4" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="9" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+
+<div class="stage" id="stage" role="button" tabindex="0" aria-label="Tap to unfold the letter">
+  <div class="scene">
+    <div class="shadow"></div>
+    <div class="fold">
+      <div class="pn a">
+        <div class="face front paper"><div class="ink"></div><i class="sh"></i></div>
+        <div class="face back paper"><span class="to">Adeeba</span><i class="sh"></i></div>
+      </div>
+      <div class="pn b">
+        <div class="face front paper"><div class="ink"></div><i class="sh"></i></div>
+      </div>
+      <div class="pn c">
+        <div class="face front paper"><div class="ink"></div><i class="sh"></i></div>
+        <div class="face back paper"><i class="sh"></i></div>
+      </div>
+    </div>
+  </div>
+  <div class="hint">tap to unfold</div>
+</div>
+
+<main id="letter">
+  <article class="sheet">
+    <div class="sheet-bg paper"><i class="crease" style="top:33%"></i><i class="crease" style="top:66%"></i><i class="crease v"></i></div>
+    <div class="text">
+      <p>I'm sorry for the times i've spoken to you harshly, for the unnecessary arguments, and for the times i let my anger get in the way of understanding you.</p>
+      <p>Most of the time, when i speak harshly, it's because there's something i dislike or something that's bothering me. I know i dont always handle those feelings properly. Instead of explaining what's wrong calmly, sometimes i just react, and my words come out harsher than they should.</p>
+      <p>I know that's not fair to you. Just because i'm upset about something doesn't mean you deserve to be spoken to that way. I'm sorry for the times i've made you feel bad when i should have tried to understand you better.</p>
+      <p>Sometimes i realise it only after i've said something, and i wish i had handled it differently.</p>
+      <p>Kunjuo, i love you so much, even if i dont always express it properly. Sometimes the way i speak or react might not show what's actually in my heart, but i never want you to feel that you mean any less to me.</p>
+      <p>I know saying sorry doesn't change what happened. I just want to be more careful with my words and learn to handle things better, even when i'm upset.</p>
+      <p>I cant promise i'll never make mistakes, but i dont want to keep repeating the same ones without trying to change.</p>
+      <p>You mean so much to me, Adeeba. I probably dont say it enough, and maybe i dont always show it the way you expect, but i love you much more than i know how to express.</p>
+      <p>I'm sorry for the times i made you feel otherwise, kunjuo.</p>
+      <p class="sig">— Sadath</p>
+    </div>
+  </article>
+  <div class="turn"><button type="button" id="turn">Turn the page</button></div>
+</main>
+
+<section id="p2" aria-label="Memories">
+  <div class="swipe-hint" id="swipe-hint">‹ swipe sideways to see all memories ›</div>
+
+  <!-- Sideways Scroll Garland Container -->
+  <div class="scroll-wrap" id="scroll-wrap">
+    <div class="rig" id="rig">
+      <svg id="wires" aria-hidden="true"></svg>
+      <div class="items" id="items"></div>
+    </div>
+  </div>
+
+  <!-- Radio & Audio Controls & Final Message Button -->
+  <div class="radio-bar">
+    <div class="final-btn-wrap">
+      <button class="final-btn" id="final-btn" type="button" aria-label="A final message for Adeeba">
+        <span>❤️</span> A final message for you
+      </button>
+    </div>
+    <div class="rhint" id="rhint">tap the radio to play our songs ♫</div>
+    <div class="radio-controls">
+      <button class="radio" id="radio" type="button" aria-pressed="false" aria-label="Play music">
+        <svg viewBox="0 0 112 86" aria-hidden="true">
+          <defs><linearGradient id="wd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a5a30"/><stop offset="1" stop-color="#55341a"/></linearGradient></defs>
+          <path d="M84 24L102 4" stroke="#d4b27a" stroke-width="2.4" stroke-linecap="round"/><circle cx="102" cy="4" r="2.6" fill="#d4b27a"/>
+          <rect x="4" y="22" width="104" height="62" rx="11" fill="url(#wd)" stroke="#2f1c0c" stroke-width="1.5"/>
+          <rect x="12" y="30" width="42" height="46" rx="7" fill="#2f1c0e"/>
+          <path d="M18 38H48M18 45H48M18 52H48M18 59H48M18 66H48" stroke="#a67a46" stroke-width="1.6" stroke-linecap="round"/>
+          <rect class="dial" x="62" y="30" width="38" height="17" rx="3" fill="#cdb27c" stroke="#2f1c0c"/>
+          <path d="M72 33V44" stroke="#7a3b18" stroke-width="1.6"/>
+          <circle cx="72" cy="64" r="8" fill="#d9b878" stroke="#3a2210" stroke-width="1.4"/><circle cx="92" cy="64" r="8" fill="#d9b878" stroke="#3a2210" stroke-width="1.4"/>
+          <path d="M72 58V64M92 58V64" stroke="#3a2210" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <button class="radio-skip-btn" id="radio-skip" type="button" title="Next Song / Note" aria-label="Next song">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+          <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Polaroid Lightbox Zoom Modal -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lb-backdrop" id="lb-backdrop"></div>
+    <div class="lb-card" id="lb-card">
+      <button class="lb-close" id="lb-close" aria-label="Close photo">✕</button>
+      <div class="lb-clip">
+        <i class="prong l"></i><i class="prong r"></i><i class="bulb"></i>
+      </div>
+      <div class="lb-pic">
+        <img id="lb-img" src="" alt="Adeeba memory">
+      </div>
+      <div class="lb-cap" id="lb-cap">Kunjuo ❤️</div>
+      <div class="lb-nav">
+        <button class="lb-btn" id="lb-prev" aria-label="Previous">‹</button>
+        <span class="lb-counter" id="lb-counter">1 / 14</span>
+        <button class="lb-btn" id="lb-next" aria-label="Next">›</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fully Blackout Final Message View -->
+  <div class="blackout-view" id="blackout-view" aria-hidden="true">
+    <div class="blackout-content">
+      <div class="blackout-heart" id="blackout-heart" title="Forever with you">❤️</div>
+      <p class="blackout-text">
+        Even on the days when we dont understand each other, when things get difficult, or when i fail to express my feelings the right way, my love for you doesnt change. I know i dont always show it properly, and sometimes my words may not reflect what's in my heart, but you mean so much to me, more than i probably ever manage to explain. No matter what, it's still you, Adeeba. ❤️
+      </p>
+      <div class="blackout-sig">أنتِ بيتي وأماني</div>
+      <button class="blackout-back-btn" id="blackout-back-btn" type="button">‹ back to our memories</button>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  // wrinkle texture: turbulence lit from one side, so it reads as creased paper
+  var svg="<svg xmlns='http://www.w3.org/2000/svg' width='500' height='500'><filter id='w' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='.011 .017' numOctaves='5' seed='11' stitchTiles='stitch'/><feDiffuseLighting lighting-color='#fff' surfaceScale='2.6'><feDistantLight azimuth='225' elevation='60'/></feDiffuseLighting></filter><rect width='500' height='500' filter='url(#w)'/></svg>";
+  document.documentElement.style.setProperty('--wr','url("data:image/svg+xml,'+encodeURIComponent(svg)+'")');
+
+  var stage=document.getElementById('stage'),letter=document.getElementById('letter'),started=false;
+  var quick=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function start(){
+    if(started)return;started=true;
+    if(window.startBGM) window.startBGM();
+    stage.classList.add('go');
+    stage.querySelector('.scene').classList.add('open');
+    setTimeout(function(){
+      stage.classList.add('done');
+      document.body.classList.remove('lock');
+      window.scrollTo(0,0);
+      letter.classList.add('show');
+      var ps=[].slice.call(letter.querySelectorAll('.text p, .turn'));
+      if('IntersectionObserver' in window){
+        var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.2});
+        ps.forEach(function(p){io.observe(p)});
+      }else{ps.forEach(function(p){p.classList.add('in')})}
+    },quick?180:1500); // Fast & satisfying letter opening
+  }
+  stage.addEventListener('click',start);
+  stage.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();start()}});
+})();
+</script>
+<script>
+(function(){
+  // All 53 photos from assets/ for Adeeba & Sadath
+  var PHOTOS = [
+    { src: 'assets/im1.jpg', cap: 'My beautiful Adeeba ✨' },
+    { src: 'assets/im2.jpg', cap: 'Pure sunshine ❤️' },
+    { src: 'assets/im3.jpg', cap: 'That sweet smile' },
+    { src: 'assets/im4.jpg', cap: 'Every moment with you' },
+    { src: 'assets/im5.jpg', cap: 'My Kunjuo' },
+    { src: 'assets/im6.jpg', cap: 'Precious memories' },
+    { src: 'assets/im7.jpg', cap: 'Looking at you 🌟' },
+    { src: 'assets/im8.jpg', cap: 'Always in my heart' },
+    { src: 'assets/im9.jpg', cap: 'Forever & always ❤️' },
+    { src: 'assets/im10.jpg', cap: 'Adoring you' },
+    { src: 'assets/im11.jpg', cap: 'My favorite person' },
+    { src: 'assets/im12.jpg', cap: 'Together with you' },
+    { src: 'assets/im13.jpg', cap: 'Cherished moments' },
+    { src: 'assets/im14.jpg', cap: 'Love of my life' },
+    { src: 'assets/im15.jpg', cap: 'In your eyes ✨' },
+    { src: 'assets/im16.jpg', cap: 'Unforgettable times' },
+    { src: 'assets/im17.jpg', cap: 'Sweet laughter' },
+    { src: 'assets/im18.jpg', cap: 'My safe place ❤️' },
+    { src: 'assets/im19.jpg', cap: 'Only you, Kunjuo' },
+    { src: 'assets/im20.jpg', cap: 'Deep in my soul' },
+    { src: 'assets/im21.jpg', cap: 'Endless love' },
+    { src: 'assets/im22.jpg', cap: 'Forever by your side' },
+    { src: 'assets/im23.jpg', cap: 'Our special story' },
+    { src: 'assets/im24.jpg', cap: 'My heart beats for you' },
+    { src: 'assets/im25.jpg', cap: 'So captivating 🌟' },
+    { src: 'assets/im26.jpg', cap: 'A treasure to me' },
+    { src: 'assets/im28.jpg', cap: 'Gentle moments' },
+    { src: 'assets/im29.jpg', cap: 'Thinking of you always' },
+    { src: 'assets/im30.jpg', cap: 'Happiness with you ❤️' },
+    { src: 'assets/im31.jpg', cap: 'You mean everything' },
+    { src: 'assets/im32.jpg', cap: 'Never letting go' },
+    { src: 'assets/im33.jpg', cap: 'My greatest blessing' },
+    { src: 'assets/im34.jpg', cap: 'Pure magic ✨' },
+    { src: 'assets/im35.jpg', cap: 'Always & forever' },
+    { src: 'assets/im36.jpg', cap: 'Your warmth & love' },
+    { src: 'assets/im37.jpg', cap: 'With all my heart' },
+    { src: 'assets/im38.jpg', cap: 'My dearest Adeeba ❤️' },
+    { src: 'assets/im39.jpg', cap: 'Every heartbeat is you' },
+    { src: 'assets/im40.jpg', cap: 'Cherishing each day' },
+    { src: 'assets/im41.jpg', cap: 'Forever mine' },
+    { src: 'assets/im42.jpg', cap: 'Our beautiful journey' },
+    { src: 'assets/im43.jpeg', cap: 'Sadath & Adeeba ❤️' },
+    { src: 'assets/im44.jpeg', cap: 'You light up my world' },
+    { src: 'assets/im45.jpeg', cap: 'Holding you close' },
+    { src: 'assets/im46.jpeg', cap: 'Pure joy with you' },
+    { src: 'assets/im47.jpeg', cap: 'In love with you' },
+    { src: 'assets/im48.jpeg', cap: 'Always my number one' },
+    { src: 'assets/im49.jpeg', cap: 'Sweetest dream ❤️' },
+    { src: 'assets/im50.jpg', cap: 'Forever grateful' },
+    { src: 'assets/im51.jpeg', cap: 'You are my home' },
+    { src: 'assets/im52.jpeg', cap: 'Infinite love ✨' },
+    { src: 'assets/im53.jpeg', cap: 'My sweetest Kunjuo' },
+    { src: 'assets/im54.jpeg', cap: 'Endlessly yours ❤️' }
+  ];
+
+  // Songs & Voice Notes Playlist from songs/ and musics/
+  var SONGS = [
+    { title: 'Melody from My Heart', src: 'songs/s1.mp4' },
+    { title: 'Voice Note #1', src: 'songs/s2.opus' },
+    { title: 'Voice Note #2', src: 'songs/s3.opus' },
+    { title: 'Voice Note #3', src: 'songs/s4.opus' },
+    { title: 'Voice Note #4', src: 'songs/s5.opus' },
+    { title: 'Voice Note #5', src: 'songs/s6.opus' },
+    { title: 'Voice Note #6', src: 'songs/s7.opus' },
+    { title: 'Voice Note #7', src: 'songs/s8.ogg' },
+    { title: 'Heartfelt Message', src: 'songs/s9.m4a' },
+    { title: 'Always Yours, Adeeba', src: 'songs/s10.opus' },
+    { title: 'Our Song 1', src: 'musics/song1.mp3' },
+    { title: 'Our Song 2', src: 'musics/song2.mp3' },
+    { title: 'Our Song 3', src: 'musics/song3.mp3' }
+  ];
+
+  var p2 = document.getElementById('p2'),
+      scrollWrap = document.getElementById('scroll-wrap'),
+      rig = document.getElementById('rig'),
+      wires = document.getElementById('wires'),
+      items = document.getElementById('items'),
+      radio = document.getElementById('radio'),
+      radioSkip = document.getElementById('radio-skip'),
+      rhint = document.getElementById('rhint'),
+      swipeHint = document.getElementById('swipe-hint'),
+      turn = document.getElementById('turn');
+
+  var lightbox = document.getElementById('lightbox'),
+      lbBackdrop = document.getElementById('lb-backdrop'),
+      lbClose = document.getElementById('lb-close'),
+      lbImg = document.getElementById('lb-img'),
+      lbCap = document.getElementById('lb-cap'),
+      lbCounter = document.getElementById('lb-counter'),
+      lbPrev = document.getElementById('lb-prev'),
+      lbNext = document.getElementById('lb-next');
+
+  var finalBtn = document.getElementById('final-btn'),
+      blackoutView = document.getElementById('blackout-view'),
+      blackoutBackBtn = document.getElementById('blackout-back-btn'),
+      blackoutHeart = document.getElementById('blackout-heart');
+
+  var currentModalIdx = 0;
+  var currentSongIdx = 0;
+  var audio = new Audio();
+  var isAudioPlaying = false;
+  var noteTimer = null;
+
+  // Calm & Emotional Background Music playlist from musics/
+  var BGM_PLAYLIST = [
+    { title: 'Song 1', src: 'musics/song1.mp3' },
+    { title: 'Song 2', src: 'musics/song2.mp3' },
+    { title: 'Song 3', src: 'musics/song3.mp3' }
+  ];
+
+  var savedBgmIdx = parseInt(localStorage.getItem('adeeba_bgm_idx'), 10);
+  var currentBgmIdx = (!isNaN(savedBgmIdx) && savedBgmIdx >= 0 && savedBgmIdx < BGM_PLAYLIST.length) ? savedBgmIdx : 2; // Default to song3
+  var savedBgmTime = parseFloat(localStorage.getItem('adeeba_bgm_time') || '0');
+  if (isNaN(savedBgmTime) || savedBgmTime < 0) savedBgmTime = 0;
+
+  var bgmAudio = new Audio();
+  bgmAudio.volume = 0.35;
+  bgmAudio.src = BGM_PLAYLIST[currentBgmIdx].src;
+
+  var isBgmPlaying = false;
+  var bgmBtn = document.getElementById('bgm-btn');
+
+  // Track time updates to remember playback position when closing or refreshing
+  bgmAudio.addEventListener('timeupdate', function(){
+    if (bgmAudio.currentTime > 0) {
+      localStorage.setItem('adeeba_bgm_time', bgmAudio.currentTime);
+      localStorage.setItem('adeeba_bgm_idx', currentBgmIdx);
+    }
+  });
+
+  // When one song finishes fully, play next song in musics/
+  bgmAudio.addEventListener('ended', function(){
+    currentBgmIdx = (currentBgmIdx + 1) % BGM_PLAYLIST.length;
+    localStorage.setItem('adeeba_bgm_idx', currentBgmIdx);
+    localStorage.setItem('adeeba_bgm_time', '0');
+    savedBgmTime = 0;
+    playBGMTrack(currentBgmIdx, 0);
+  });
+
+  function playBGMTrack(idx, resumeAt){
+    currentBgmIdx = idx % BGM_PLAYLIST.length;
+    bgmAudio.src = BGM_PLAYLIST[currentBgmIdx].src;
+
+    var seekApplied = false;
+    var targetTime = (typeof resumeAt === 'number' && resumeAt > 0) ? resumeAt : 0;
+
+    var onMeta = function(){
+      if (!seekApplied && targetTime > 0 && targetTime < bgmAudio.duration) {
+        bgmAudio.currentTime = targetTime;
+        seekApplied = true;
+      }
+      bgmAudio.removeEventListener('loadedmetadata', onMeta);
+    };
+    bgmAudio.addEventListener('loadedmetadata', onMeta);
+
+    bgmAudio.play().then(function(){
+      isBgmPlaying = true;
+      if(bgmBtn) bgmBtn.classList.add('playing');
+    }).catch(function(e){
+      console.log('BGM notice:', e);
+    });
+  }
+
+  function startBGM(){
+    if(isAudioPlaying) return; // Never play BGM over radio songs!
+    if(isBgmPlaying) return;
+
+    if (!bgmAudio.src || bgmAudio.src === '') {
+      playBGMTrack(currentBgmIdx, savedBgmTime);
+      return;
+    }
+
+    if (savedBgmTime > 0 && Math.abs(bgmAudio.currentTime - savedBgmTime) > 2) {
+      try {
+        bgmAudio.currentTime = savedBgmTime;
+      } catch(err){}
+    }
+
+    bgmAudio.play().then(function(){
+      isBgmPlaying = true;
+      if(bgmBtn) bgmBtn.classList.add('playing');
+    }).catch(function(e){
+      console.log('BGM notice:', e);
+    });
+  }
+
+  function pauseBGM(){
+    bgmAudio.pause();
+    isBgmPlaying = false;
+    if(bgmBtn) bgmBtn.classList.remove('playing');
+    if(bgmAudio.currentTime > 0){
+      localStorage.setItem('adeeba_bgm_time', bgmAudio.currentTime);
+      localStorage.setItem('adeeba_bgm_idx', currentBgmIdx);
+    }
+  }
+
+  window.startBGM = startBGM;
+  window.pauseBGM = pauseBGM;
+
+  if(bgmBtn){
+    bgmBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      if(isBgmPlaying){
+        pauseBGM();
+      } else {
+        if(isAudioPlaying) pauseTrack();
+        startBGM();
+      }
+    });
+  }
+
+  var R = [-3, 2.5, -2, 3, -2.5, 2, -1.8, 2.8, -3, 2.2, -1.5, 3, -2.5, 2];
+
+  // Build the horizontal garland of hanging lights and polaroids
+  function build(){
+    var viewportW = window.innerWidth;
+    var pw = Math.min(145, Math.floor(viewportW * 0.36));
+    var colSpacing = pw + 60;
+    var itemsPerRow = Math.ceil(PHOTOS.length / 2); // 7 per row
+    var totalW = Math.max(viewportW + 40, itemsPerRow * colSpacing + 70);
+
+    rig.style.width = totalW + 'px';
+    rig.style.setProperty('--pw', pw + 'px');
+
+    var rowH = pw * 1.35 + 85;
+    var totalH = rowH * 2 + 50;
+    rig.style.height = totalH + 'px';
+
+    var svg = '';
+    var h = '';
+
+    // Two rows of draped garlands
+    for (var r = 0; r < 2; r++) {
+      var baseY = (r === 0) ? 36 : (rowH + 24);
+      var startIdx = r * itemsPerRow;
+      var endIdx = Math.min(startIdx + itemsPerRow, PHOTOS.length);
+      var countInRow = endIdx - startIdx;
+
+      // Calculate positions of clips along this row
+      var points = [];
+      for (var i = 0; i < countInRow; i++) {
+        var x = 50 + i * colSpacing + (i % 2 === 0 ? 0 : 12);
+        var y = baseY + Math.sin(i * 1.1) * 8 + 8;
+        points.push({ x: x, y: y, idx: startIdx + i });
+      }
+
+      // Generate scalloped garland curve through the clips
+      var d = 'M -20 ' + baseY;
+      var prevX = -20;
+      var prevY = baseY;
+
+      for (var p = 0; p < points.length; p++) {
+        var pt = points[p];
+        var midX = (prevX + pt.x) / 2;
+        var sagY = Math.max(prevY, pt.y) + 14;
+        d += ' Q ' + midX + ' ' + sagY + ' ' + pt.x + ' ' + pt.y;
+
+        // Mini twinkling fairy bulbs on the curve between clips
+        if (p > 0) {
+          h += '<div class="wire-fairy" style="left:' + midX + 'px;top:' + (sagY - 2) + 'px;animation-delay:' + (p * 0.3) + 's"></div>';
+        }
+
+        prevX = pt.x;
+        prevY = pt.y;
+      }
+      // Curve to the right end
+      var endX = totalW + 30;
+      d += ' Q ' + ((prevX + endX) / 2) + ' ' + (baseY + 12) + ' ' + endX + ' ' + baseY;
+
+      svg += '<path d="' + d + '" fill="none" stroke="rgba(20,10,0,.6)" stroke-width="4.5"/>';
+      svg += '<path d="' + d + '" fill="none" stroke="#e8cf98" stroke-width="2"/>';
+      svg += '<path d="' + d + '" fill="none" stroke="#fff4d0" stroke-width="1.2" stroke-dasharray="3 4" opacity=".85"/>';
+
+      // Place clips and polaroids
+      for (var k = 0; k < points.length; k++) {
+        var item = points[k];
+        var n = item.idx;
+        var P = PHOTOS[n];
+        var dl = ((n % 7) * 0.25).toFixed(2);
+        var tilt = R[n % R.length];
+
+        // Glowing Clothespin Clip
+        h += '<div class="clip" style="left:' + item.x + 'px;top:' + (item.y - 8) + 'px;--d:' + dl + 's;">' +
+             '<i class="prong l"></i><i class="prong r"></i><i class="bulb"></i></div>';
+
+        // Polaroid Frame
+        h += '<div class="pol" data-idx="' + n + '" style="left:' + (item.x - pw / 2) + 'px;top:' + (item.y + 12) + 'px;width:' + pw + 'px;--r:' + tilt + 'deg;--d:' + dl + 's;">' +
+             '<div class="card">' +
+             '<div class="pic"><img alt="' + P.cap + '" src="' + P.src + '" loading="lazy"></div>' +
+             '<div class="cap">' + P.cap + '</div>' +
+             '</div></div>';
+      }
+    }
+
+    wires.setAttribute('viewBox', '0 0 ' + totalW + ' ' + totalH);
+    wires.innerHTML = svg;
+    items.innerHTML = h;
+
+    // Attach click events to all polaroids
+    var pols = items.querySelectorAll('.pol');
+    pols.forEach(function(el){
+      el.addEventListener('click', function(){
+        var idx = parseInt(el.getAttribute('data-idx'), 10);
+        openLightbox(idx);
+      });
+    });
+  }
+
+  // Sideways Drag & Swipe Support for Mouse & Touch
+  var isPointerDown = false, startX = 0, initialScroll = 0;
+  scrollWrap.addEventListener('mousedown', function(e){
+    isPointerDown = true;
+    startX = e.pageX - scrollWrap.offsetLeft;
+    initialScroll = scrollWrap.scrollLeft;
+  });
+  window.addEventListener('mouseup', function(){ isPointerDown = false; });
+  scrollWrap.addEventListener('mousemove', function(e){
+    if(!isPointerDown) return;
+    e.preventDefault();
+    var x = e.pageX - scrollWrap.offsetLeft;
+    var walk = (x - startX) * 1.4;
+    scrollWrap.scrollLeft = initialScroll - walk;
+    swipeHint.classList.add('hide');
+  });
+  scrollWrap.addEventListener('scroll', function(){
+    if(scrollWrap.scrollLeft > 25) {
+      swipeHint.classList.add('hide');
+    }
+  }, { passive: true });
+
+  // Lightbox Logic
+  function openLightbox(idx){
+    currentModalIdx = idx;
+    var p = PHOTOS[currentModalIdx];
+    if(!p) return;
+    lbImg.src = p.src;
+    lbCap.textContent = p.cap;
+    lbCounter.textContent = (currentModalIdx + 1) + ' / ' + PHOTOS.length;
+    lightbox.classList.add('show');
+    lightbox.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeLightbox(){
+    lightbox.classList.remove('show');
+    lightbox.setAttribute('aria-hidden', 'true');
+  }
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbBackdrop.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', function(){
+    currentModalIdx = (currentModalIdx - 1 + PHOTOS.length) % PHOTOS.length;
+    openLightbox(currentModalIdx);
+  });
+  lbNext.addEventListener('click', function(){
+    currentModalIdx = (currentModalIdx + 1) % PHOTOS.length;
+    openLightbox(currentModalIdx);
+  });
+
+  // Touch Swipe inside Lightbox
+  var lbTouchX = 0;
+  lightbox.addEventListener('touchstart', function(e){
+    lbTouchX = e.changedTouches[0].screenX;
+  }, { passive: true });
+  lightbox.addEventListener('touchend', function(e){
+    var diff = e.changedTouches[0].screenX - lbTouchX;
+    if(diff > 45){
+      currentModalIdx = (currentModalIdx - 1 + PHOTOS.length) % PHOTOS.length;
+      openLightbox(currentModalIdx);
+    } else if(diff < -45){
+      currentModalIdx = (currentModalIdx + 1) % PHOTOS.length;
+      openLightbox(currentModalIdx);
+    }
+  }, { passive: true });
+
+  // Radio Audio Player Logic for songs/
+  function floatNote(){
+    var s = document.createElement('span');
+    s.className = 'note';
+    var notes = ['\u266A', '\u266B', '\u2669', '\u2764'];
+    s.textContent = notes[Math.random() * notes.length | 0];
+    s.style.setProperty('--x', (Math.random() * 60 - 30) + 'px');
+    s.style.marginLeft = (Math.random() * 50 - 25) + 'px';
+    p2.appendChild(s);
+    setTimeout(function(){ s.remove(); }, 3400);
+  }
+
+
+  var savedRadioIdx = parseInt(localStorage.getItem('adeeba_radio_idx'), 10);
+  if (!isNaN(savedRadioIdx) && savedRadioIdx >= 0 && savedRadioIdx < SONGS.length) {
+    currentSongIdx = savedRadioIdx;
+  }
+  var savedRadioTime = parseFloat(localStorage.getItem('adeeba_radio_time') || '0');
+  if (isNaN(savedRadioTime) || savedRadioTime < 0) savedRadioTime = 0;
+
+  audio.addEventListener('timeupdate', function(){
+    if (audio.currentTime > 0) {
+      localStorage.setItem('adeeba_radio_time', audio.currentTime);
+      localStorage.setItem('adeeba_radio_idx', currentSongIdx);
+    }
+  });
+
+  function playTrack(idx, resumeAt){
+    // Stop calm background music when radio starts playing!
+    pauseBGM();
+
+    currentSongIdx = (idx !== undefined) ? idx : currentSongIdx;
+    localStorage.setItem('adeeba_radio_idx', currentSongIdx);
+    var track = SONGS[currentSongIdx % SONGS.length];
+    audio.src = track.src;
+
+    var seekApplied = false;
+    var targetTime = (typeof resumeAt === 'number' && resumeAt > 0) ? resumeAt : 0;
+    var onMeta = function(){
+      if (!seekApplied && targetTime > 0 && targetTime < audio.duration) {
+        audio.currentTime = targetTime;
+        seekApplied = true;
+      }
+      audio.removeEventListener('loadedmetadata', onMeta);
+    };
+    audio.addEventListener('loadedmetadata', onMeta);
+
+    audio.play().then(function(){
+      isAudioPlaying = true;
+      radio.classList.add('on');
+      radio.setAttribute('aria-pressed', 'true');
+      rhint.classList.add('playing');
+      rhint.textContent = '♫ Playing: ' + track.title;
+      floatNote();
+      if(!noteTimer) noteTimer = setInterval(floatNote, 1200);
+    }).catch(function(err){
+      console.log('Track playback notice:', err);
+      // If unsupported codec, try fallback to next or mp3
+      if(track.src.endsWith('.opus') || track.src.endsWith('.mp4')){
+        audio.src = 'musics/song1.mp3';
+        audio.play().then(function(){
+          isAudioPlaying = true;
+          radio.classList.add('on');
+          rhint.classList.add('playing');
+          rhint.textContent = '♫ Playing: For Adeeba';
+          floatNote();
+        }).catch(function(){});
+      }
+    });
+  }
+
+  function pauseTrack(){
+    audio.pause();
+    isAudioPlaying = false;
+    radio.classList.remove('on');
+    radio.setAttribute('aria-pressed', 'false');
+    rhint.classList.remove('playing');
+    rhint.textContent = 'tap the radio to play our songs ♫';
+    clearInterval(noteTimer);
+    noteTimer = null;
+    if (audio.currentTime > 0) {
+      localStorage.setItem('adeeba_radio_time', audio.currentTime);
+      localStorage.setItem('adeeba_radio_idx', currentSongIdx);
+    }
+
+    // Resume calm & sad background music when radio stops!
+    startBGM();
+  }
+
+  radio.addEventListener('click', function(e){
+    e.stopPropagation();
+    if(isAudioPlaying){
+      pauseTrack();
+    } else {
+      var resumeTime = (savedRadioTime > 0) ? savedRadioTime : 0;
+      savedRadioTime = 0; // Only resume from saved point on the first user press
+      playTrack(currentSongIdx, resumeTime);
+    }
+  });
+
+  radioSkip.addEventListener('click', function(e){
+    e.stopPropagation();
+    currentSongIdx = (currentSongIdx + 1) % SONGS.length;
+    localStorage.setItem('adeeba_radio_time', '0');
+    savedRadioTime = 0;
+    playTrack(currentSongIdx, 0);
+  });
+
+  audio.addEventListener('ended', function(){
+    currentSongIdx = (currentSongIdx + 1) % SONGS.length;
+    localStorage.setItem('adeeba_radio_time', '0');
+    savedRadioTime = 0;
+    playTrack(currentSongIdx, 0);
+  });
+
+  // Final Blackout Screen Logic
+  function openBlackout(){
+    blackoutView.classList.add('active');
+    blackoutView.setAttribute('aria-hidden', 'false');
+    // Ensure calm, sad emotional background music plays in the darkness!
+    if(!isAudioPlaying){
+      startBGM();
+    }
+  }
+
+  function closeBlackout(){
+    blackoutView.classList.remove('active');
+    blackoutView.setAttribute('aria-hidden', 'true');
+  }
+
+  finalBtn.addEventListener('click', openBlackout);
+  blackoutBackBtn.addEventListener('click', closeBlackout);
+  blackoutHeart.addEventListener('click', function(){
+    floatNote();
+  });
+
+  // Page 2 Transition
+  function openP2(){
+    build();
+    p2.classList.add('show');
+    document.body.classList.add('lock');
+    try{ history.pushState({p:2}, '', '#memories'); }catch(e){}
+  }
+  function closeP2(){
+    pauseTrack();
+    closeBlackout();
+    p2.classList.remove('show');
+    document.body.classList.remove('lock');
+  }
+  turn.addEventListener('click', openP2);
+  window.addEventListener('popstate', function(){
+    if(blackoutView && blackoutView.classList.contains('active')){
+      closeBlackout();
+    } else if(p2.classList.contains('show')){
+      closeP2();
+    }
+  });
+
+  window.addEventListener('resize', function(){
+    clearTimeout(build.t);
+    build.t = setTimeout(build, 250);
+  });
+})();
+</script>
+</body>
+</html>
